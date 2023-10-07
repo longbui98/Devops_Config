@@ -21,7 +21,7 @@ jobs:
   #             --region us-east-1
   configure_infrastructure:
     docker:
-      - image: amazone/aws-cli
+      - image: amazon/aws-cli:latest
     steps:
       - checkout
       - add_ssh_keys:
