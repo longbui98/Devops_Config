@@ -21,7 +21,7 @@ jobs:
   #             --region us-east-1
   configure_infrastructure:
     docker:
-      - image: amazon/aws-cli:latest
+      - image: python:3.7-alpine3.11
     steps:
       - checkout
       - add_ssh_keys:
@@ -33,7 +33,7 @@ jobs:
       - run:
           name: Run Playbook and Configure server
           command: |
-            ansible-playbook -i inventory 
+            ansible-playbook -i inventory main-remote.yml
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
