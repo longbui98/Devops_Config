@@ -13,7 +13,7 @@ Resources:
        IndexDocument: index.html
        ErrorDocument: error.html
      PublicAccessBlockConfiguration:
-       BlockPublicAcls: false
+       BlockPublicAcls: true
      OwnershipControls:
         Rules:
           - ObjectOwnership: ObjectWriter
