@@ -51,8 +51,9 @@ jobs:
     steps:
       - run: 
           name: Test failed job
-          command: return 1
-      - destroy_environments
+          command: | 
+            return 1
+      - destroy_environments when: on_fail
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
