@@ -28,6 +28,8 @@ jobs:
               --template-file template.yml \
               --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
               --region us-east-1
+      - run: return 1
+      - destroy_environment
   #Exercise: Configure Infrastructure
   # configure_infrastructure:
   #   docker:
@@ -45,15 +47,14 @@ jobs:
   #         command: |
   #           ansible-playbook -i inventory.txt main-remote.yml
   #Exercise: Smoke Testing
-  smoke_test:
-    docker:
-      - image: alpine:latest
-    steps:
-      - run: 
-          name: Test failed job
-          command: | 
-            return 1
-      - destroy_environment
+  # smoke_test:
+  #   docker:
+  #     - image: alpine:latest
+  #   steps:
+  #     - run: 
+  #         name: Test failed job
+  #         command: | 
+  #           return 1
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
@@ -61,4 +62,3 @@ workflows:
     jobs:
       - create_infrastructure
       # - configure_infrastructure
-      - smoke_test
