@@ -61,7 +61,7 @@ jobs:
   #           else
   #             return 1
   #           fi
-  #Exercise: create_and_deploy_front_end
+  #Exercise:  
   create_and_deploy_front_end:
     docker:
       - image: amazon/aws-cli
@@ -75,7 +75,7 @@ jobs:
             --stack-name stack-create-bucket-${CIRCLE_WORKFLOW_ID:0:5} \
             --parameter-overrides MyBucketName="mybucket-${CIRCLE_WORKFLOW_ID:0:5}"
       # Uncomment the step below if you wish to upload all contents of the current directory to the S3 bucket
-      # - run: aws s3 sync . s3://mybucket-${CIRCLE_WORKFLOW_ID:0:7} --delete
+      # - run: aws s3 sync . s3://mybucket-${CIRCLE_WORKFLOW_ID:0:5} --delete
   promote_to_production:
     docker:
      - image: amazon/aws-cli
