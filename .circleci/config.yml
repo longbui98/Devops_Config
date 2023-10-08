@@ -13,7 +13,7 @@ commands:
           name: Destroy Environment
           when: on_fail
           command: |
-            aws cloudformation delete-stack --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:7}
+            aws cloudformation delete-stack --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5}
 jobs:
   # Exercise: Create Infrastructure
   create_infrastructure: 
@@ -28,8 +28,8 @@ jobs:
               --template-file template.yml \
               --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
               --region us-east-1
-      - run: return 1
-      - destroy_environment
+      - run:
+          return 1
   #Exercise: Configure Infrastructure
   # configure_infrastructure:
   #   docker:
@@ -47,14 +47,21 @@ jobs:
   #         command: |
   #           ansible-playbook -i inventory.txt main-remote.yml
   #Exercise: Smoke Testing
-  # smoke_test:
-  #   docker:
-  #     - image: alpine:latest
-  #   steps:
-  #     - run: 
-  #         name: Test failed job
-  #         command: | 
-  #           return 1
+  smoke_test:
+    docker:
+      - image: alpine:latest
+    steps:
+      - run: 
+          name: Test failed job
+          command: | 
+            URL="https://blog.udacity.com/"
+            # Test if website exists
+            if curl -s --head ${URL} 
+            then
+              return 0
+            else
+              return 1
+            fi
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
@@ -62,3 +69,4 @@ workflows:
     jobs:
       - create_infrastructure
       # - configure_infrastructure
+      - smoke_test
