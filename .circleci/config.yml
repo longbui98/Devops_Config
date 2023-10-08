@@ -7,6 +7,7 @@ version: 2.1
 orbs:
   aws-cli: circleci/aws-cli@2.0.3
 jobs:
+  #Exercise: Create Infrastructure
   # create_infrastructure: 
   #   docker:
   #     - image: amazon/aws-cli
@@ -19,25 +20,43 @@ jobs:
   #             --template-file template.yml \
   #             --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
   #             --region us-east-1
-  configure_infrastructure:
+  #Exercise: Configure Infrastructure
+  # configure_infrastructure:
+  #   docker:
+  #     - image: python:3.7-alpine3.11
+  #   steps:
+  #     - checkout
+  #     - add_ssh_keys:
+  #           fingerprints: [36:96:87:28:e3:ae:14:50:0e:f9:94:de:c0:4e:46:a7]
+  #     - run:
+  #         name: Install Ansible
+  #         command: |
+  #           apk add --update ansible
+  #     - run:
+  #         name: Run Playbook and Configure server
+  #         command: |
+  #           ansible-playbook -i inventory.txt main-remote.yml
+  #Exercise: Smoke Testing
+  smoke_test:
     docker:
-      - image: python:3.7-alpine3.11
+      - image: alpine:latest
     steps:
-      - checkout
-      - add_ssh_keys:
-            fingerprints: [36:96:87:28:e3:ae:14:50:0e:f9:94:de:c0:4e:46:a7]
+      - run: apk add --update curl
       - run:
-          name: Install Ansible
+          name: smoke testing
           command: |
-            apk add --update ansible
-      - run:
-          name: Run Playbook and Configure server
-          command: |
-            ansible-playbook -i inventory.txt main-remote.yml
+            URL="https://blog.udacity.com"
+            if curl -s --head ${URL}
+            then
+              return 0
+            else
+              return 1
+            fi
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
   crete_infraastructure_workflow:
     jobs:
       # - create_infrastructure
-      - configure_infrastructure
+      # - configure_infrastructure
+      - smoke_test
