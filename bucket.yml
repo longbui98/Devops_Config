@@ -16,7 +16,7 @@ Resources:
        BlockPublicAcls: true
      OwnershipControls:
         Rules:
-          - ObjectOwnership: ObjectWriter
+          - ObjectOwnership: BucketOwnerEnforced
  WebsiteBucketPolicy:
    Type: AWS::S3::BucketPolicy
    Properties:
