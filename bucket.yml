@@ -13,7 +13,10 @@ Resources:
        IndexDocument: index.html
        ErrorDocument: error.html
      PublicAccessBlockConfiguration:
-       BlockPublicAcls: true
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: false
      OwnershipControls:
         Rules:
           - ObjectOwnership: BucketOwnerEnforced
