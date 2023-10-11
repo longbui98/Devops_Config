@@ -17,9 +17,6 @@ Resources:
         BlockPublicPolicy: false
         IgnorePublicAcls: true
         RestrictPublicBuckets: false
-     OwnershipControls:
-        Rules:
-          - ObjectOwnership: BucketOwnerEnforced
  WebsiteBucketPolicy:
    Type: AWS::S3::BucketPolicy
    Properties:
